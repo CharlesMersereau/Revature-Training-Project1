@@ -45,4 +45,4 @@
 hs_err_pid*
 
 # database properties
-Project1/src/main/resources/database.properties
+Project1/src/main/webapp/web-inf/database.properties
