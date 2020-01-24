@@ -31,14 +31,6 @@ public class UpdateSuperhumanServlet extends HttpServlet {
     
     	PrintWriter pw = response.getWriter();
     	
-    	pw.write("<head><link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css\">\r\n" + 
-				"<script src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js\"></script>\r\n" + 
-				"<script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js\"></script></head>");
-		pw.write("<div class='jumbotron' style='text-align:center'><h1>Superhuman Registration</h1>\r\n</div>");
-		pw.write("<div class='container'>");
-    	pw.write("<form method='post' action='/Project1/update-super-human' style='width:50%;margin:auto;'>");
-    	pw.write("<div class='form-group'>");
-    	pw.write("<select class='mdb-select md-form' name='id'><option value='' disabled selected>Superhuman to update</option>");
     	
     	List<Superhuman> registeredSupers = new ArrayList<Superhuman>();
     	
@@ -47,21 +39,39 @@ public class UpdateSuperhumanServlet extends HttpServlet {
     	} catch (SQLException e) {
     		e.printStackTrace();
     	}
-    
-    	for (Superhuman superhuman : registeredSupers) {
-    		pw.write("<option value='" + superhuman.getId() + "'>" + superhuman.getName() + "</option>");
+    	
+    	pw.write("<head><title>Superhuman Update Form</title><link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css\">\r\n" + 
+				"<script src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js\"></script>\r\n" + 
+				"<script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js\"></script></head>");
+		pw.write("<div class='jumbotron' style='text-align:center'><h1><a href='/Project1/index.html' style='text-decoration:none;color:inherit'>Superhuman Registration</a></h1></div>");
+		pw.write("<div class='container' syle='text-align:center;'>");
+    	
+    	if (registeredSupers.isEmpty()) {
+    		
+    		pw.write("<h2>No Superhumans to show</h2>");
+    		
+    	} else {
+    		
+    		pw.write("<form method='post' action='/Project1/update-super-human' style='width:50%;margin:auto;'>");
+        	pw.write("<div class='form-group'>");
+        	pw.write("<select class='mdb-select md-form' name='id'><option value='' disabled selected>Superhuman to update</option>");
+        	
+        	for (Superhuman superhuman : registeredSupers) {
+        		pw.write("<option value='" + superhuman.getId() + "'>" + superhuman.getName() + "</option>");
+        	}
+        	
+        	pw.write("</select></div>");
+        	pw.write("<div class='form-group'><label for='name'>Name:</label><input type='text' class='form-control' name='name' required></div>");
+        	pw.write("<div class='form-group'><label for='primaryAbility'>Primary Ability:</label><input type='text' class='form-control' name='primaryAbility' required></div>");
+        	pw.write("<div class='form-group'><label for='sphereOfInfluence'>Sphere of Influence:</label><input type='text' class='form-control' name='sphereOfInfluence' required></div>");
+        	pw.write("<div class='form-group'><label><input type='checkbox' name='alien' value='true'>Alien</label>");
+        	pw.write("<select class='mdb-select md-form' name='alignmentId'><option value='' disabled selected>Alignment</option>");
+        	pw.write("<option value='1'>hero</option><option value='2'>vigilante</option><option value='3'>antihero</option><option value='4'>neutral</option><option value='5'>villain</option>");
+        	pw.write("</select></div>");
+        	pw.write("<button type='submit' class='btn btn-default'>Submit</button></form>");
     	}
-    	
-    	pw.write("</select></div>");
-    	pw.write("<div class='form-group'><label for='name'>Name:</label><input type='text' class='form-control' name='name' required></div>");
-    	pw.write("<div class='form-group'><label for='primaryAbility'>Primary Ability:</label><input type='text' class='form-control' name='primaryAbility' required></div>");
-    	pw.write("<div class='form-group'><label for='sphereOfInfluence'>Sphere of Influence:</label><input type='text' class='form-control' name='sphereOfInfluence' required></div>");
-    	pw.write("<div class='form-group'><label><input type='checkbox' name='alien' value='true'>Alien</label>");
-    	pw.write("<select class='mdb-select md-form' name='alignmentId'><option value='' disabled selected>Alignment</option>");
-    	pw.write("<option value='1'>hero</option><option value='2'>vigilante</option><option value='3'>antihero</option><option value='4'>neutral</option><option value='5'>villain</option>");
-    	pw.write("</select></div>");
-    	pw.write("<button type='submit' class='btn btn-default'>Submit</button></form></div>");
-    	
+    
+    	pw.write("</div>");
     }
     
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -74,8 +84,6 @@ public class UpdateSuperhumanServlet extends HttpServlet {
 		superhuman.setAlien("true".equals(request.getParameter("alien")));
 		superhuman.setSphereOfInfluence(request.getParameter("sphereOfInfluence"));
 		superhuman.setAlignmentId(Integer.parseInt(request.getParameter("alignmentId")));
-		
-		System.out.println(superhuman);
 		
 		try {
 			supers.updateSuperhuman(superhuman);

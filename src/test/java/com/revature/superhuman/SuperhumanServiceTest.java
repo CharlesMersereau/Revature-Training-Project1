@@ -55,7 +55,7 @@ public class SuperhumanServiceTest {
 
 		supers.getSuperhumans();
 		
-		verify(superDAO).getSuperhumans();
+		verify(superDAO).getSuperhumans("alignment_id");
 	}
 	
 	@Test

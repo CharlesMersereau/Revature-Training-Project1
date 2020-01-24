@@ -31,7 +31,7 @@ public class SuperhumanDAOPostgresTest {
 	private PreparedStatement createStmt = ConnectionFactory.getConnection("test").prepareStatement("insert into superhuman (superhuman_name, primary_ability, alien, sphere_of_influence, alignment_id) values (?,?,?,?,?)");
 	
 	@Spy
-	private PreparedStatement getStmt = ConnectionFactory.getConnection("test").prepareStatement("select s.superhuman_id, s.superhuman_name, s.primary_ability, s.alien, s.sphere_of_influence, a.alignment from superhuman as s left join alignment as a on s.alignment_id = a.alignment_id");
+	private PreparedStatement getStmt = ConnectionFactory.getConnection("test").prepareStatement("select s.superhuman_id, s.superhuman_name, s.primary_ability, s.alien, s.sphere_of_influence, a.alignment, a.alignment_id from superhuman as s left join alignment as a on s.alignment_id = a.alignment_id order by superhuman_id");
 	
 	@Spy
 	private PreparedStatement updateStmt = ConnectionFactory.getConnection("test").prepareStatement("update superhuman set superhuman_name = ?, primary_ability = ?, alien = ?, sphere_of_influence = ?, alignment_id = ? where superhuman_id = ?");
@@ -60,8 +60,6 @@ public class SuperhumanDAOPostgresTest {
 		superhuman.setSphereOfInfluence("here");
 		superhuman.setAlignmentId(2);
 		
-		System.out.println(ConnectionFactory.getConnection().getSchema());
-		
 		try {
 			superDAO.addSuperhuman(superhuman);
 		} catch (SQLException e) {
@@ -80,9 +78,9 @@ public class SuperhumanDAOPostgresTest {
 	@Test
 	public void getSuperhumans() throws SQLException {
 		
-		when(conn.prepareStatement("select s.superhuman_id, s.superhuman_name, s.primary_ability, s.alien, s.sphere_of_influence, a.alignment from superhuman as s left join alignment as a on s.alignment_id = a.alignment_id")).thenReturn(getStmt);
+		when(conn.prepareStatement("select s.superhuman_id, s.superhuman_name, s.primary_ability, s.alien, s.sphere_of_influence, a.alignment, a.alignment_id from superhuman as s left join alignment as a on s.alignment_id = a.alignment_id order by superhuman_id")).thenReturn(getStmt);
 		
-		superDAO.getSuperhumans();
+		superDAO.getSuperhumans("superhuman_id");
 		
 		verify(getStmt).executeQuery();
 	}

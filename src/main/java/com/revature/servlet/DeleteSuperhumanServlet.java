@@ -32,10 +32,10 @@ public class DeleteSuperhumanServlet extends HttpServlet {
     	
     	PrintWriter pw = response.getWriter();
     	
-    	pw.write("<head><link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css\">\r\n" + 
+    	pw.write("<head><title>Superhuman Deregister</title><link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css\">\r\n" + 
 				"<script src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js\"></script>\r\n" + 
 				"<script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js\"></script></head>");
-		pw.write("<div class='jumbotron' style='text-align:center'><h1>Superhuman Registration</h1>\r\n</div>");
+		pw.write("<div class='jumbotron' style='text-align:center'><h1><a href='/Project1/index.html' style='text-decoration:none;color:inherit'>Superhuman Registration</a></h1></div>");
 		pw.write("<div class='container'>");
     	pw.write("<form method='post' action='/Project1/delete-super-human' style='width:50%;margin:auto;'>");
     	pw.write("<div class='form-group'>");

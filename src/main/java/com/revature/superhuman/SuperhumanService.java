@@ -25,9 +25,21 @@ public class SuperhumanService {
 		List<Superhuman> supers = null;
 		
 		try {
-			supers = superDAO.getSuperhumans();
+			supers = superDAO.getSuperhumans("superhuman_id");
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw e;
+		}
+		
+		return supers;
+	}
+	
+	public List<Superhuman> getSuperhumans(String sortBy) throws SQLException {
+		
+		List<Superhuman> supers = null;
+		
+		try {
+			supers = superDAO.getSuperhumans(sanitizeSortBy(sortBy));
+		} catch (SQLException e) {
 			throw e;
 		}
 		
@@ -38,7 +50,6 @@ public class SuperhumanService {
 		try {
 			superDAO.addSuperhuman(superhuman);
 		} catch (SQLException e) {
-			e.printStackTrace();
 			throw e;
 		}
 	}
@@ -48,7 +59,6 @@ public class SuperhumanService {
 		try {
 			superDAO.updateSuperhuman(superhuman);
 		} catch (SQLException e) {
-			e.printStackTrace();
 			throw e;
 		}
 		
@@ -59,8 +69,18 @@ public class SuperhumanService {
 		try {
 			superDAO.removeSuperhuman(id);
 		} catch (SQLException e) {
-			e.printStackTrace();
 			throw e;
+		}
+	}
+	
+	public String sanitizeSortBy(String sortBy) {
+		
+		if (sortBy == null) {
+			return "superhuman_id";
+		} else if (sortBy.equals("superhuman_name") || sortBy.equals("alien") || sortBy.equals("alignment_id")) {
+			return sortBy;
+		} else {
+			return "superhuman_id";
 		}
 		
 	}
