@@ -49,23 +49,60 @@ public class UpdateSuperhumanServlet extends HttpServlet {
         		
         	} else {
         		
-        		pw.write("<form method='post' action='/Project1/update-super-human' style='width:50%;margin:auto;'>");
-            	pw.write("<div class='form-group'>");
-            	pw.write("<select class='mdb-select md-form' name='id' style='height:35px;width:200px;padding:5px'><option value='' disabled selected>Superhuman to update</option>");
-            	
-            	for (Superhuman superhuman : registeredSupers) {
-            		pw.write("<option value='" + superhuman.getId() + "'>" + superhuman.getName() + "</option>");
-            	}
-            	
-            	pw.write("</select></div>");
-            	pw.write("<div class='form-group'><label for='name'>Name:</label><input type='text' class='form-control' name='name' required></div>");
-            	pw.write("<div class='form-group'><label for='primaryAbility'>Primary Ability:</label><input type='text' class='form-control' name='primaryAbility' required></div>");
-            	pw.write("<div class='form-group'><label for='sphereOfInfluence'>Sphere of Influence:</label><input type='text' class='form-control' name='sphereOfInfluence' required></div>");
-            	pw.write("<div class='form-group'><label style='margin:auto 10px auto auto;'><input type='checkbox' name='alien' value='true' style='margin:0 5px;'>Alien</label>");
-            	pw.write("<select class='mdb-select md-form' name='alignmentId' style='height:35px;width:180px;padding:5px;float:right;'><option value='' disabled selected>Alignment</option>");
-            	pw.write("<option value='1'>hero</option><option value='2'>vigilante</option><option value='3'>antihero</option><option value='4'>neutral</option><option value='5'>villain</option>");
-            	pw.write("</select></div>");
-            	pw.write("<button type='submit' class='btn btn-default'>Submit</button></form>");
+        		if (request.getParameter("id")==null) {
+        			
+        			pw.write("<form method='get' action='/Project1/update-super-human' style='width:50%;margin:auto;'>");
+        			pw.write("<div class='form-group'>");
+                	pw.write("<select class='mdb-select md-form' name='id' style='height:35px;width:200px;padding:5px' required><option value='' disabled selected>Superhuman to update</option>");
+                	
+                	for (Superhuman superhuman : registeredSupers) {
+                		pw.write("<option value='" + superhuman.getId() + "'>" + superhuman.getName() + "</option>");
+                	}
+                	
+                	pw.write("</select></div>");
+                	pw.write("<button type='submit' class='btn btn-default'>Choose this Superhuman</button></form>");
+                	
+        		} else {
+        			
+        			try {
+        				int id = Integer.parseInt(request.getParameter("id"));
+        				
+        				Superhuman s = null;
+            			
+            			for (Superhuman superhuman : registeredSupers) {
+            				if (superhuman.getId() == id) {
+            					s = superhuman;
+            					
+            					pw.write("<form method='post' action='/Project1/update-super-human' style='width:50%;margin:auto;'>");
+                    			pw.write("<div style='display:none'><input name='id' value='" + request.getParameter("id") + "'></input></div>");
+                            	pw.write("<div class='form-group'><label for='name'>Name:</label><input type='text' class='form-control' name='name' value='" + s.getName() + "' required></div>");
+                            	pw.write("<div class='form-group'><label for='primaryAbility'>Primary Ability:</label><input type='text' class='form-control' name='primaryAbility' value='" + s.getPrimaryAbility() + "' required></div>");
+                            	pw.write("<div class='form-group'><label for='sphereOfInfluence'>Sphere of Influence:</label><input type='text' class='form-control' name='sphereOfInfluence' value='" + s.getSphereOfInfluence() + "' required></div>");
+                            	pw.write("<div class='form-group'><label style='margin:auto 10px auto auto;'><input type='checkbox' name='alien' value='true'  " + (s.isAlien() ? "checked='true'" : "")  + "' style='margin:0 5px;'>Alien</label>");
+                            	pw.write("<select class='mdb-select md-form' name='alignmentId' style='height:35px;width:180px;padding:5px;float:right;' required><option value='' disabled>Alignment</option>");
+                            	System.out.println(s.getAlignment().equals("vigilante"));
+                            	pw.write("<option value='1' " + ( (s.getAlignment().equals("hero") ) ? "selected" : "") + ">hero</option>" 
+                            			+ "<option value='2' " + ( (s.getAlignment().equals("vigilante") ) ? "selected" : "") + ">vigilante</option>"
+                            			+ "<option value='3' " + ( (s.getAlignment().equals("antihero") ) ? "selected" : "") + ">antihero</option>"
+                            			+ "<option value='4' " + ( (s.getAlignment().equals("neutral") ) ? "selected" : "") + ">neutral</option>"
+                            			+ "<option value='5' " + ( (s.getAlignment().equals("villain") ) ? "selected" : "") + ">villain</option>");
+                            	pw.write("</select></div>");
+                            	pw.write("<button type='submit' class='btn btn-default'>Update</button></form>");
+            					
+            				}
+            			}
+            			
+            			if (s == null) {
+            				response.sendRedirect("/Project1/update-super-human");
+            			}
+        				
+        			} catch (NumberFormatException e) {
+        				response.sendRedirect("update-super-human");
+        			}
+        			
+        		}
+        		
+        		
         	}
         	
     	} catch (SQLException e) {

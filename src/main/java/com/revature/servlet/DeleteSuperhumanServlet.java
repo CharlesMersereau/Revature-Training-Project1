@@ -39,7 +39,7 @@ public class DeleteSuperhumanServlet extends HttpServlet {
 		pw.write("<div class='container'>");
     	pw.write("<form method='post' action='/Project1/delete-super-human' style='width:50%;margin:auto;'>");
     	pw.write("<div class='form-group'>");
-    	pw.write("<select class='mdb-select md-form' name='id'><option value='' disabled selected>Superhuman to update</option>");
+    	pw.write("<select class='mdb-select md-form' name='id' style='height:35px;width:200px;padding:5px' required><option value='' disabled selected>Superhuman to update</option>");
     	
     	List<Superhuman> registeredSupers = new ArrayList<Superhuman>();
     	
@@ -54,7 +54,7 @@ public class DeleteSuperhumanServlet extends HttpServlet {
     	}
     	
     	pw.write("</select></div>");
-    	pw.write("<button type='submit' class='btn btn-default'>Submit</button></form></div>");
+    	pw.write("<button type='submit' class='btn btn-default'>Deregister</button></form></div>");
     	
     }
 	
@@ -63,7 +63,9 @@ public class DeleteSuperhumanServlet extends HttpServlet {
 		try {
 			supers.deleteSuperhuman(Integer.parseInt(request.getParameter("id")));
 		} catch (SQLException e) {
-			e.printStackTrace();
+
+		} catch (NumberFormatException e1) {
+			response.sendRedirect("/Project1/delete-super-human");
 		}
 		
 		response.sendRedirect("super-human");

@@ -1,1 +1,7 @@
 2020-01-24 12:15:19 INFO  LoggerUtil:26 - Superhuman added to the database: Superhuman [id=null, name=Charles, primaryAbility=tall, alien=true, sphereOfInfluence=here, alignment=null, alignmentId=2]
+2020-01-24 15:31:48 INFO  LoggerUtil:26 - Superhuman added to the database: Superhuman [id=null, name=Charles, primaryAbility=tall, alien=true, sphereOfInfluence=here, alignment=null, alignmentId=2]
+2020-01-24 15:31:50 DEBUG LoggerUtil:22 - a superhuman failed to be deleted, but an sql exception was not thrown
+2020-01-24 15:31:52 DEBUG LoggerUtil:22 - a superhuman failed to update, but an sql exception was not thrown
+2020-01-24 15:34:50 INFO  LoggerUtil:26 - Superhuman added to the database: Superhuman [id=null, name=Charles, primaryAbility=tall, alien=true, sphereOfInfluence=here, alignment=null, alignmentId=2]
+2020-01-24 15:34:51 DEBUG LoggerUtil:22 - SUPERHUMAN MAY NOT EXIST: a superhuman failed to be deleted, but an sql exception was not thrown
+2020-01-24 15:34:53 DEBUG LoggerUtil:22 - SUPERHUMAN MAY NOT EXIST: a superhuman failed to update, but an sql exception was not thrown

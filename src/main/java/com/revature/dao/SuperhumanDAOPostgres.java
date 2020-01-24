@@ -42,13 +42,13 @@ public class SuperhumanDAOPostgres implements SuperhumanDAO {
 			int rowsUpdated = stmt.executeUpdate();
 
 			if (rowsUpdated == 0) {
-//				logger.debug("a superhuman failed to be added, but an sql exception was not thrown");
+				logger.debug("a superhuman failed to be added, but an sql exception was not thrown");
 			} else {
 				logger.info("Superhuman added to the database: " + superhuman);
 			}
 
 		} catch (SQLException e) {
-//			logger.equals("SQLException in addSuperhuman: " +e.getMessage());
+			logger.debug("SQLException in addSuperhuman: " +e.getMessage());
 			throw e;
 		}
 	}
@@ -85,7 +85,7 @@ public class SuperhumanDAOPostgres implements SuperhumanDAO {
 			}
 
 		} catch (SQLException e) {
-//			logger.equals("SQLException in getSuperhumans: " +e.getMessage());
+			logger.debug("SQLException in getSuperhumans: " +e.getMessage());
 			throw e;
 		}
 
@@ -112,13 +112,13 @@ public class SuperhumanDAOPostgres implements SuperhumanDAO {
 			int rowsUpdated = stmt.executeUpdate();
 
 			if (rowsUpdated == 0) {
-//				logger.debug("a superhuman failed to update, but an sql exception was not thrown");
+				logger.debug("SUPERHUMAN MAY NOT EXIST: a superhuman failed to update, but an sql exception was not thrown");
 			} else {
-//				logger.info("Superhuman updated: " + superhuman);
+				logger.info("Superhuman updated: " + superhuman);
 			}
 
 		} catch (SQLException e) {
-//			logger.equals("SQLException in updateSuperhuman: " +e.getMessage());
+			logger.debug("SQLException in updateSuperhuman: " +e.getMessage());
 			throw e;
 		}
 	}
@@ -137,13 +137,13 @@ public class SuperhumanDAOPostgres implements SuperhumanDAO {
 			int rowsUpdated = stmt.executeUpdate();
 
 			if (rowsUpdated == 0) {
-//				logger.debug("a superhuman failed to be deleted, but an sql exception was not thrown");
+				logger.debug("SUPERHUMAN MAY NOT EXIST: a superhuman failed to be deleted, but an sql exception was not thrown");
 			} else {
-//				logger.info("Superhuman removed from the database: [" + id +"]");
+				logger.info("Superhuman removed from the database: [" + id +"]");
 			}
 
 		} catch (SQLException e) {
-//			logger.equals("SQLException in removeSuperhuman: " +e.getMessage());
+			logger.debug("SQLException in removeSuperhuman: " +e.getMessage());
 			throw e;
 		}
 

@@ -46,6 +46,10 @@ public class GetSuperhumanServlet extends HttpServlet {
 			
 			registeredSupers = supers.getSuperhumans(sortBy);
 			
+			if (sortBy == null) {
+				sortBy = "";
+			}
+			
 			if (registeredSupers.isEmpty()) {
 				pw.write("<h2>No Superhumans to show</h2>");
 			} else {
@@ -53,9 +57,9 @@ public class GetSuperhumanServlet extends HttpServlet {
 				pw.write("<div class='form-group' style='height:30px;'><button class='btn btn-primary' type='submit' style='margin:0 10px;height:30px;width:60px;'>Sort</button><select class='mdb-select md-form' name='sortBy' style='height:30px;width:120px;'>");
 				pw.write("<option value='' disabled>Sort by</option>");
 				pw.write("<option value='superhuman_id'>Normal</option>");
-				pw.write("<option value='superhuman_name'>Name</option>");
-				pw.write("<option value='alien'>Alien</option>");
-				pw.write("<option value='alignment_id'>Alignment</option>");
+				pw.write("<option value='superhuman_name' " + (sortBy.equals("superhuman_name") ? "selected" : "") + ">Name</option>");
+				pw.write("<option value='alien' " + (sortBy.equals("alien") ? "selected" : "") + ">Alien</option>");
+				pw.write("<option value='alignment_id' " + (sortBy.equals("alignment_id") ? "selected" : "") + ">Alignment</option>");
 				pw.write("</select></div></form>");
 				pw.write("<table class='table' style='width:100%;'>");
 				pw.write("<tr>");
