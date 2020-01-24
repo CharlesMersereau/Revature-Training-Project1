@@ -8,7 +8,17 @@ public class Superhuman {
 	private boolean alien;
 	private String sphereOfInfluence;
 	private String alignment;
+	private Integer alignmentId;
 	
+	
+
+	@Override
+	public String toString() {
+		return "Superhuman [id=" + id + ", name=" + name + ", primaryAbility=" + primaryAbility + ", alien=" + alien
+				+ ", sphereOfInfluence=" + sphereOfInfluence + ", alignment=" + alignment + ", alignmentId="
+				+ alignmentId + "]";
+	}
+
 	public String getName() {
 		return name;
 	}
@@ -55,6 +65,14 @@ public class Superhuman {
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	public Integer getAlignmentId() {
+		return alignmentId;
+	}
+
+	public void setAlignmentId(Integer alignmentId) {
+		this.alignmentId = alignmentId;
 	}
 
 }

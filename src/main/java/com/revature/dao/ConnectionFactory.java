@@ -1,67 +1,64 @@
 package com.revature.dao;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.Properties;
-
-import com.revature.util.LoggerUtil;
 
 public class ConnectionFactory {
 
-	private static final String PROPERTIES_FILE = "src/main/webapp/WEB-INF/database.properties";
 	private static String url = "";
 	private static String username= "";
 	private static String password="";
 	private static ConnectionFactory cf;
-	private LoggerUtil logger = new LoggerUtil();
+//	private LoggerUtil logger = new LoggerUtil();
 
 	private ConnectionFactory() {
 
-		Properties prop = new Properties();
-		FileInputStream fis = null;
-				
+		url = "jdbc:postgresql://" + System.getenv("POSTGRES_URL_ENDPOINT") + ":5432/postgres?currentSchema=superhuman";
+		username = System.getenv("POSTGRES_USERNAME");
+		password = System.getenv("POSTGRES_PASSWORD");
+		
 		try {
-			fis = new FileInputStream(PROPERTIES_FILE);
-			prop.load(fis);
-			url = prop.getProperty("url");
-			username = prop.getProperty("username");
-			password = prop.getProperty("password");
-
-		} catch (FileNotFoundException e) {
-			logger.error(e.toString());
-		} catch (IOException e) {
+			Class.forName("org.postgresql.Driver");
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} finally {
-			try {
-				fis.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
 		}
 
 	}
 	
-	public static Connection getConnection() {
+	public static Connection getConnection() throws SQLException {
 
 		if (cf == null) {
 			cf = new ConnectionFactory();
 		}
 
-		return cf.createConnection();
+		return cf.createConnection(null);
 	}
+	
+	public static Connection getConnection(String test) throws SQLException {
 
-	private Connection createConnection() {
+		if (cf == null) {
+			cf = new ConnectionFactory();
+		}
+
+		return cf.createConnection(test);
+	}
+	
+	private Connection createConnection(String test) throws SQLException {
 
 		Connection conn = null;
 
 		try {
 			conn = DriverManager.getConnection(url, username, password);
+			
+			if (test != null) {
+				conn.setSchema("superhuman_test");
+			}
+			
 		} catch (SQLException e) {
-			e.printStackTrace();
+//			logger.debug("could not establish a connection");
+			throw e;
 		}
 
 		return conn;

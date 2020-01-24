@@ -9,4 +9,42 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+  <servlet>
+    <servlet-name>GetSuperhumans</servlet-name>
+    <servlet-class>com.revature.servlet.GetSuperhumanServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetSuperhumans</servlet-name>
+    <url-pattern>/super-human</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>AddSuperhumanServlet</display-name>
+    <servlet-name>AddSuperhumanServlet</servlet-name>
+    <servlet-class>com.revature.servlet.AddSuperhumanServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AddSuperhumanServlet</servlet-name>
+    <url-pattern>/create-super-human</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>UpdateSuperhumanServlet</display-name>
+    <servlet-name>UpdateSuperhumanServlet</servlet-name>
+    <servlet-class>com.revature.servlet.UpdateSuperhumanServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UpdateSuperhumanServlet</servlet-name>
+    <url-pattern>/update-super-human</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>DeleteSuperhumanServlet</display-name>
+    <servlet-name>DeleteSuperhumanServlet</servlet-name>
+    <servlet-class>com.revature.servlet.DeleteSuperhumanServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DeleteSuperhumanServlet</servlet-name>
+    <url-pattern>/delete-super-human</url-pattern>
+  </servlet-mapping>
 </web-app>

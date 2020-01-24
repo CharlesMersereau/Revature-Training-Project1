@@ -13,6 +13,6 @@ public interface SuperhumanDAO {
 	
 	public void updateSuperhuman(Superhuman superhuman) throws SQLException;
 	
-	public void removeSuperhuman(Superhuman suuperhuman) throws SQLException;
+	public void removeSuperhuman(Integer id) throws SQLException;
 
 }

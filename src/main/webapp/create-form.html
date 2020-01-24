@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Superhuman Registration Form</title>
+	<meta charset="ISO-8859-1">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="styles/main.css"/>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+	<div class="jumbotron" style='text-align:center'>
+		<h1>Superhuman Registration</h1>
+	</div>
+
+	<div class="container">
+	
+		<form method="post" action="/Project1/create-super-human">
+		
+			<div class="form-group">
+		    	<label for="name">Name:</label>
+		    	<input type="text" class="form-control" name="name" required>
+		  	</div>
+		  	
+		  	<div class="form-group">
+		    	<label for="primaryAbility">Primary Ability:</label>
+		    	<input type="text" class="form-control" name="primaryAbility" required>
+		  	</div>
+		  	
+		  	<div class="form-group">
+		    	<label for="sphereOfInfluence">Sphere of Influence:</label>
+		    	<input type="text" class="form-control" name="sphereOfInfluence" required>
+		  	</div>
+		  	
+		  	<div class="form-group">
+			  	
+			    <label><input type="checkbox" name="alien" value="true">Alien</label>
+			  	
+			  	<select class="mdb-select md-form" name="alignmentId">
+		  			<option value="" disabled selected>Alignment</option>
+		  			<option value="1">hero</option>
+		  			<option value="2">vigilante</option>
+		  			<option value="3">antihero</option>
+		  			<option value="4">neutral</option>
+		  			<option value="5">villain</option>
+				</select>
+				
+		  	</div>
+		  	
+		  	<button type="submit" class="btn btn-default">Submit</button>
+		  	
+		</form>
+		
+	</div>
+
+</body>
+</html>
