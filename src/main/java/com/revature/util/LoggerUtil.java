@@ -4,7 +4,7 @@ import org.apache.log4j.Logger;
 
 public class LoggerUtil {
 	
-	private static Logger logger = Logger.getRootLogger();
+	private static Logger logger = Logger.getLogger(LoggerUtil.class);
 	
 	public static void fatal(String m) {
 		logger.fatal(m);
